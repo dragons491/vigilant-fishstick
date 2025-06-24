@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
+    - name: Checkout code
       uses: actions/checkout@v3
 
     - name: Set up Python
@@ -16,22 +16,20 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Install dependencies
+    - name: Install Buildozer & dependencies
       run: |
         sudo apt update
-        sudo apt install -y zip unzip openjdk-11-jdk python3-pip \
-            build-essential git libffi-dev libssl-dev \
-            libjpeg-dev zlib1g-dev libncurses5 libstdc++6
+        sudo apt install -y build-essential git zip unzip openjdk-11-jdk python3-pip \
+            libffi-dev libssl-dev libjpeg-dev zlib1g-dev libncurses5 libstdc++6
         pip install --upgrade pip setuptools cython virtualenv
         pip install buildozer
 
-    - name: Add buildozer.spec
+    - name: Create buildozer.spec
       run: |
         buildozer init || true
-        echo "source.include_exts = py,kv" >> buildozer.spec
-        echo "requirements = python3,kivy,kivymd" >> buildozer.spec
+        echo "requirements = python3,kivy" >> buildozer.spec
+        echo "source.include_exts = py" >> buildozer.spec
         echo "android.permissions = INTERNET" >> buildozer.spec
-        echo "title = JarvisApp" >> buildozer.spec
         echo "package.name = jarvis" >> buildozer.spec
         echo "package.domain = org.example" >> buildozer.spec
 
