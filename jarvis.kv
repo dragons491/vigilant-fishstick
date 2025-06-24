@@ -1,0 +1,19 @@
+BoxLayout:
+    orientation: 'vertical'
+    padding: 10
+    spacing: 10
+
+    ScrollView:
+        MDLabel:
+            id: chat
+            text: "Hello, I'm Jarvis."
+            size_hint_y: None
+            height: self.texture_size[1]
+            text_size: self.width, None
+            halign: "left"
+            valign: "top"
+
+    MDRaisedButton:
+        text: "Speak"
+        pos_hint: {"center_x": 0.5}
+        on_release: app.run_jarvis()
